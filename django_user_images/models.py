@@ -23,7 +23,7 @@ def hash_upload(instance, filename):
 class Image(TimeStampedModel):
     image = models.ImageField(verbose_name=_('Image'), upload_to=hash_upload, max_length=512)
     size = models.IntegerField(verbose_name=_('File size in bytes'), blank=True, editable=False)
-    owner = models.ForeignKey(AUTH_USER_MODEL)
+    owner = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def validate_size(self):
         self.size = self.image.size
