@@ -1,4 +1,4 @@
-from rest_framework import viewsets, permissions, routers
+from rest_framework import viewsets, permissions, routers, filters
 from django_user_images.models import Image
 from .serializers import ImageSerializer
 
@@ -7,6 +7,8 @@ class ImageViewSet(viewsets.ModelViewSet):
     serializer_class = ImageSerializer
     permission_classes = (permissions.IsAuthenticated,)
     queryset = Image.objects.all()
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['created']
 
     def get_serializer_context(self):
         return {'owner': self.request.user}
