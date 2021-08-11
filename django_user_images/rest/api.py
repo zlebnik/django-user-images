@@ -14,6 +14,7 @@ class ImageViewSet(viewsets.ModelViewSet):
         return {'owner': self.request.user}
 
     def filter_queryset(self, queryset):
+        queryset = super().filter_queryset(queryset)
         user = self.request.user
         return queryset.filter(owner=user)
 
